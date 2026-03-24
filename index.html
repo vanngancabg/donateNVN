@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Donate cho tôi</title>
+</head>
+<body>
+  <h2>Ủng hộ tôi</h2>
+  <form id="donateForm">
+    <label for="amount">Nhập số tiền (VND):</label>
+    <input type="number" id="amount" name="amount" required>
+    <button type="submit">Chuyển tiền</button>
+  </form>
+
+  <script>
+    document.getElementById("donateForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      let amount = document.getElementById("amount").value;
+
+      // Ví dụ: link Momo (thay số điện thoại của bạn)
+      let momoLink = `https://nhantien.momo.vn/so_dien_thoai_cua_ban?amount=${amount}`;
+
+      window.location.href = momoLink;
+    });
+  </script>
+</body>
+</html>
