@@ -80,6 +80,46 @@
       border: 3px solid #ffd700;
       border-radius: 12px;
       box-shadow: 0 0 15px #000;
+      margin-bottom: 15px;
+    }
+    #saveBtn {
+      padding: 10px 20px;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #ffd700;
+      color: #000;
+      box-shadow: 2px 2px 6px #000;
+    }
+    #saveBtn:hover {
+      background: #ffeb3b;
+    }
+    .custom-amount {
+      margin-top: 20px;
+    }
+    .custom-amount input {
+      padding: 10px;
+      font-size: 1em;
+      border-radius: 8px;
+      border: none;
+      width: 200px;
+      text-align: center;
+      margin: 5px;
+    }
+    .custom-amount button {
+      margin-left: 10px;
+      padding: 10px 20px;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #4caf50;
+      color: white;
+      box-shadow: 2px 2px 6px #000;
+    }
+    .custom-amount button:hover {
+      background: #45a049;
     }
     footer {
       margin-top: 50px;
@@ -108,21 +148,32 @@
   <p>Chọn số tiền bạn muốn donate:</p>
 
   <div class="donate-buttons">
-    <button onclick="showQR(10000)">10,000 VND</button>
-    <button onclick="showQR(20000)">20,000 VND</button>
-    <button onclick="showQR(50000)">50,000 VND</button>
-    <button onclick="showQR(100000)">100,000 VND</button>
-    <button onclick="showQR(150000)">150,000 VND</button>
-    <button onclick="showQR(200000)">200,000 VND</button>
-    <button onclick="showQR(300000)">300,000 VND</button>
-    <button onclick="showQR(400000)">400,000 VND</button>
-    <button onclick="showQR(500000)">500,000 VND</button>
+    <button onclick="showQR(10000, 'Ung ho Cafe')">10,000 VND</button>
+    <button onclick="showQR(20000, 'Ung ho Cafe')">20,000 VND</button>
+    <button onclick="showQR(50000, 'Ung ho Cafe')">50,000 VND</button>
+    <button onclick="showQR(100000, 'Ung ho Cafe')">100,000 VND</button>
+    <button onclick="showQR(150000, 'Ung ho Cafe')">150,000 VND</button>
+    <button onclick="showQR(200000, 'Ung ho Cafe')">200,000 VND</button>
+    <button onclick="showQR(300000, 'Ung ho Cafe')">300,000 VND</button>
+    <button onclick="showQR(400000, 'Ung ho Cafe')">400,000 VND</button>
+    <button onclick="showQR(500000, 'Ung ho Cafe')">500,000 VND</button>
+  </div>
+
+  <!-- Ô nhập số tiền và nội dung tùy chọn -->
+  <div class="custom-amount">
+    <input type="number" id="customAmount" placeholder="Nhập số tiền (VND)">
+    <input type="text" id="customInfo" placeholder="Nội dung chuyển khoản (không dấu)">
+    <button onclick="customDonate()">Tạo QR</button>
   </div>
 
   <!-- Khung hiển thị QR -->
   <div id="qrBox">
     <p>Quét mã QR bằng ứng dụng ngân hàng của bạn:</p>
     <img id="qrImage" src="" alt="QR Code">
+    <br>
+    <a id="qrDownload" href="" download="qr-chuyenkhoan.jpg">
+      <button id="saveBtn">Lưu ảnh mã QR</button>
+    </a>
   </div>
 
   <footer>
@@ -130,20 +181,29 @@
   </footer>
 
   <script>
-    function showQR(amount) {
-      // Tài khoản ngân hàng của bạn
+    function showQR(amount, info) {
       let bankAccount = "101601626628";
       let bankName = "VietinBank";
       let accountName = "VAN NGAN";
 
-      // Nội dung chuyển khoản không dấu
-      let addInfo = "Ung%20ho%20Cafe";
+      // Encode nội dung để đưa vào URL
+      let addInfo = encodeURIComponent(info);
 
-      // Link QR động từ VietQR
       let qrLink = `https://img.vietqr.io/image/${bankName}-${bankAccount}-compact2.jpg?amount=${amount}&addInfo=${addInfo}&accountName=${accountName}`;
 
       document.getElementById("qrImage").src = qrLink;
+      document.getElementById("qrDownload").href = qrLink;
       document.getElementById("qrBox").style.display = "block";
+    }
+
+    function customDonate() {
+      let amount = document.getElementById("customAmount").value;
+      let info = document.getElementById("customInfo").value || "Ung ho Van Ngan";
+      if (amount && amount > 0) {
+        showQR(amount, info);
+      } else {
+        alert("Vui lòng nhập số tiền hợp lệ!");
+      }
     }
   </script>
 </body>
