@@ -71,30 +71,6 @@
       from { opacity: 0; }
       to { opacity: 1; }
     }
-    #qrBox {
-      margin-top: 30px;
-      display: none;
-    }
-    #qrBox img {
-      width: 250px;
-      border: 3px solid #ffd700;
-      border-radius: 12px;
-      box-shadow: 0 0 15px #000;
-      margin-bottom: 15px;
-    }
-    #saveBtn {
-      padding: 10px 20px;
-      font-size: 1em;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      background: #ffd700;
-      color: #000;
-      box-shadow: 2px 2px 6px #000;
-    }
-    #saveBtn:hover {
-      background: #ffeb3b;
-    }
     .custom-amount {
       margin-top: 20px;
     }
@@ -121,22 +97,53 @@
     .custom-amount button:hover {
       background: #45a049;
     }
+    /* Popup QR */
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.9);
+      color: #ffd700;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #000;
+      display: none;
+      text-align: center;
+      z-index: 999;
+    }
+    .popup img {
+      width: 250px;
+      border: 3px solid #ffd700;
+      border-radius: 12px;
+      box-shadow: 0 0 15px #000;
+      margin-bottom: 15px;
+    }
+    #saveBtn {
+      padding: 10px 20px;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #ffd700;
+      color: #000;
+      box-shadow: 2px 2px 6px #000;
+    }
+    #saveBtn:hover {
+      background: #ffeb3b;
+    }
+    .closeBtn {
+      margin-top: 15px;
+      cursor: pointer;
+      color: #fff;
+      font-size: 0.9em;
+      text-decoration: underline;
+    }
     footer {
       margin-top: 50px;
       font-size: 1em;
       color: #ffd700;
       text-shadow: 1px 1px 3px #000;
-    }
-    @media (max-width: 600px) {
-      h2 { font-size: 2em; }
-      .donate-buttons button {
-        font-size: 1em;
-        padding: 15px 20px;
-        flex: 1 1 100%;
-      }
-      img.avatar { width: 120px; height: 120px; }
-      .intro { font-size: 1.1em; }
-      footer { font-size: 0.9em; }
     }
   </style>
 </head>
@@ -166,14 +173,19 @@
     <button onclick="customDonate()">Tạo QR</button>
   </div>
 
-  <!-- Khung hiển thị QR -->
-  <div id="qrBox">
+  <!-- Popup QR -->
+  <div id="popup" class="popup">
     <p>Quét mã QR bằng ứng dụng ngân hàng của bạn:</p>
     <img id="qrImage" src="" alt="QR Code">
     <br>
     <a id="qrDownload" href="" download="qr-chuyenkhoan.jpg">
       <button id="saveBtn">Lưu ảnh mã QR</button>
     </a>
+    <p style="font-size:0.9em; color:#ffd700;">
+      iPhone: giữ tay vào ảnh QR và chọn "Lưu ảnh".<br>
+      Android: ảnh sẽ tự tải về máy.
+    </p>
+    <div class="closeBtn" onclick="closePopup()">Đóng</div>
   </div>
 
   <footer>
@@ -185,15 +197,13 @@
       let bankAccount = "101601626628";
       let bankName = "VietinBank";
       let accountName = "VAN NGAN";
-
-      // Encode nội dung để đưa vào URL
       let addInfo = encodeURIComponent(info);
 
       let qrLink = `https://img.vietqr.io/image/${bankName}-${bankAccount}-compact2.jpg?amount=${amount}&addInfo=${addInfo}&accountName=${accountName}`;
 
       document.getElementById("qrImage").src = qrLink;
       document.getElementById("qrDownload").href = qrLink;
-      document.getElementById("qrBox").style.display = "block";
+      document.getElementById("popup").style.display = "block";
     }
 
     function customDonate() {
@@ -204,6 +214,10 @@
       } else {
         alert("Vui lòng nhập số tiền hợp lệ!");
       }
+    }
+
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
     }
   </script>
 </body>
