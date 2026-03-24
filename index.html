@@ -11,11 +11,27 @@
       background-size: cover;
       color: white;
       padding: 5%;
+      opacity: 0;
+      animation: fadeIn 2s forwards;
+    }
+    img.avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 3px solid #ffd700;
+      box-shadow: 0 0 15px #000;
+      margin-bottom: 15px;
+    }
+    .intro {
+      font-size: 1.3em;
+      color: #ffd700;
+      text-shadow: 1px 1px 3px #000;
+      margin-bottom: 25px;
     }
     h2 {
       color: #ffd700;
       text-shadow: 2px 2px 4px #000;
-      font-size: 2.5em; /* chữ lớn hơn */
+      font-size: 2.5em;
     }
     p {
       font-size: 1.2em;
@@ -30,7 +46,7 @@
     .donate-buttons button {
       margin: 10px;
       padding: 20px 30px;
-      font-size: 1.2em; /* chữ lớn hơn */
+      font-size: 1.2em;
       border: none;
       border-radius: 10px;
       cursor: pointer;
@@ -38,12 +54,46 @@
       color: white;
       box-shadow: 2px 2px 6px #000;
       flex: 1 1 40%;
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: pulse 2s infinite;
     }
     .donate-buttons button:hover {
       background: rgba(233, 30, 99, 0.9);
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #ff80ab;
     }
 
-    /* Responsive cho màn hình nhỏ (điện thoại) */
+    /* Hiệu ứng rung nhẹ (pulse) */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    /* Hiệu ứng fade-in cho toàn trang */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Popup cảm ơn */
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.8);
+      color: #ffd700;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #000;
+      display: none;
+      font-size: 1.3em;
+      text-align: center;
+      z-index: 999;
+    }
+
+    /* Responsive cho màn hình nhỏ */
     @media (max-width: 600px) {
       h2 {
         font-size: 2em;
@@ -53,10 +103,22 @@
         padding: 15px 20px;
         flex: 1 1 100%;
       }
+      img.avatar {
+        width: 120px;
+        height: 120px;
+      }
+      .intro {
+        font-size: 1.1em;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Ảnh cá nhân -->
+  <img src="ca-nhan.jpg" alt="Ảnh cá nhân" class="avatar">
+  <!-- Dòng giới thiệu -->
+  <div class="intro">Xin chào, tôi là Văn Ngân</div>
+
   <h2>Ủng hộ tôi qua Momo</h2>
   <p>Chọn số tiền bạn muốn donate:</p>
 
@@ -72,11 +134,23 @@
     <button onclick="donate(500000)">500,000 VND</button>
   </div>
 
+  <!-- Popup cảm ơn -->
+  <div id="popup" class="popup">
+    ❤️ Cảm ơn bạn đã ủng hộ! ❤️<br>
+    Bạn sẽ được chuyển sang Momo ngay...
+  </div>
+
   <script>
     function donate(amount) {
-      // Thay số điện thoại Momo của bạn vào đây
-      let momoLink = `https://nhantien.momo.vn/so_dien_thoai_cua_ban?amount=${amount}`;
-      window.location.href = momoLink;
+      // Hiện popup cảm ơn
+      let popup = document.getElementById("popup");
+      popup.style.display = "block";
+
+      // Sau 2 giây mới chuyển sang Momo
+      setTimeout(function() {
+        let momoLink = `https://nhantien.momo.vn/so_dien_thoai_cua_ban?amount=${amount}`;
+        window.location.href = momoLink;
+      }, 2000);
     }
   </script>
 </body>
