@@ -10,25 +10,29 @@
       background: url('hinh-nen.jpg') no-repeat center center fixed;
       background-size: cover;
       color: white;
-      padding: 50px;
+      padding: 5%;
     }
     h2 {
       color: #ffd700;
       text-shadow: 2px 2px 4px #000;
+      font-size: 2.5em; /* chữ lớn hơn */
+    }
+    p {
+      font-size: 1.2em;
     }
     .donate-buttons {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      max-width: 600px;
+      max-width: 800px;
       margin: 0 auto;
     }
     .donate-buttons button {
       margin: 10px;
-      padding: 15px 25px;
-      font-size: 16px;
+      padding: 20px 30px;
+      font-size: 1.2em; /* chữ lớn hơn */
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
       background: rgba(255, 64, 129, 0.9);
       color: white;
@@ -37,6 +41,18 @@
     }
     .donate-buttons button:hover {
       background: rgba(233, 30, 99, 0.9);
+    }
+
+    /* Responsive cho màn hình nhỏ (điện thoại) */
+    @media (max-width: 600px) {
+      h2 {
+        font-size: 2em;
+      }
+      .donate-buttons button {
+        font-size: 1em;
+        padding: 15px 20px;
+        flex: 1 1 100%;
+      }
     }
   </style>
 </head>
