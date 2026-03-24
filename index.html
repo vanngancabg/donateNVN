@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Ủng hộ tôi</title>
+  <title>Ủng hộ Văn Ngân</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -62,111 +62,88 @@
       transform: scale(1.05);
       box-shadow: 0 0 15px #ff80ab;
     }
-
-    /* Hiệu ứng rung nhẹ (pulse) */
     @keyframes pulse {
       0% { transform: scale(1); }
       50% { transform: scale(1.05); }
       100% { transform: scale(1); }
     }
-
-    /* Hiệu ứng fade-in cho toàn trang */
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
-
-    /* Popup cảm ơn */
-    .popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0,0,0,0.8);
-      color: #ffd700;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 20px #000;
+    #qrBox {
+      margin-top: 30px;
       display: none;
-      font-size: 1.3em;
-      text-align: center;
-      z-index: 999;
     }
-
-    /* Footer */
+    #qrBox img {
+      width: 250px;
+      border: 3px solid #ffd700;
+      border-radius: 12px;
+      box-shadow: 0 0 15px #000;
+    }
     footer {
       margin-top: 50px;
       font-size: 1em;
       color: #ffd700;
       text-shadow: 1px 1px 3px #000;
     }
-
-    /* Responsive cho màn hình nhỏ */
     @media (max-width: 600px) {
-      h2 {
-        font-size: 2em;
-      }
+      h2 { font-size: 2em; }
       .donate-buttons button {
         font-size: 1em;
         padding: 15px 20px;
         flex: 1 1 100%;
       }
-      img.avatar {
-        width: 120px;
-        height: 120px;
-      }
-      .intro {
-        font-size: 1.1em;
-      }
-      footer {
-        font-size: 0.9em;
-      }
+      img.avatar { width: 120px; height: 120px; }
+      .intro { font-size: 1.1em; }
+      footer { font-size: 0.9em; }
     }
   </style>
 </head>
 <body>
-  <!-- Ảnh cá nhân -->
   <img src="ca-nhan.jpg" alt="Ảnh cá nhân" class="avatar">
-  <!-- Dòng giới thiệu -->
   <div class="intro">Xin chào, tôi là Văn Ngân</div>
 
-  <h2>Ủng hộ tôi qua Momo</h2>
+  <h2>Ủng hộ tôi qua chuyển khoản ngân hàng</h2>
   <p>Chọn số tiền bạn muốn donate:</p>
 
   <div class="donate-buttons">
-    <button onclick="donate(10000)">10,000 VND</button>
-    <button onclick="donate(20000)">20,000 VND</button>
-    <button onclick="donate(50000)">50,000 VND</button>
-    <button onclick="donate(100000)">100,000 VND</button>
-    <button onclick="donate(150000)">150,000 VND</button>
-    <button onclick="donate(200000)">200,000 VND</button>
-    <button onclick="donate(300000)">300,000 VND</button>
-    <button onclick="donate(400000)">400,000 VND</button>
-    <button onclick="donate(500000)">500,000 VND</button>
+    <button onclick="showQR(10000)">10,000 VND</button>
+    <button onclick="showQR(20000)">20,000 VND</button>
+    <button onclick="showQR(50000)">50,000 VND</button>
+    <button onclick="showQR(100000)">100,000 VND</button>
+    <button onclick="showQR(150000)">150,000 VND</button>
+    <button onclick="showQR(200000)">200,000 VND</button>
+    <button onclick="showQR(300000)">300,000 VND</button>
+    <button onclick="showQR(400000)">400,000 VND</button>
+    <button onclick="showQR(500000)">500,000 VND</button>
   </div>
 
-  <!-- Popup cảm ơn -->
-  <div id="popup" class="popup">
-    ❤️ Cảm ơn bạn đã ủng hộ! ❤️<br>
-    Bạn sẽ được chuyển sang Momo ngay...
+  <!-- Khung hiển thị QR -->
+  <div id="qrBox">
+    <p>Quét mã QR bằng ứng dụng ngân hàng của bạn:</p>
+    <img id="qrImage" src="" alt="QR Code">
   </div>
 
-  <!-- Footer -->
   <footer>
     © 2026 Văn Ngân – Cảm ơn sự ủng hộ của bạn
   </footer>
 
   <script>
-    function donate(amount) {
-      // Hiện popup cảm ơn
-      let popup = document.getElementById("popup");
-      popup.style.display = "block";
+    function showQR(amount) {
+      // Tài khoản ngân hàng của bạn
+      let bankAccount = "101601626628";
+      let bankName = "VietinBank";
+      let accountName = "VAN NGAN";
 
-      // Sau 2 giây mới chuyển sang Momo
-      setTimeout(function() {
-        let momoLink = `https://nhantien.momo.vn/so_dien_thoai_cua_ban?amount=${amount}`;
-        window.location.href = momoLink;
-      }, 2000);
+      // Nội dung chuyển khoản không dấu
+      let addInfo = "Ung%20ho%20Cafe";
+
+      // Link QR động từ VietQR
+      let qrLink = `https://img.vietqr.io/image/${bankName}-${bankAccount}-compact2.jpg?amount=${amount}&addInfo=${addInfo}&accountName=${accountName}`;
+
+      document.getElementById("qrImage").src = qrLink;
+      document.getElementById("qrBox").style.display = "block";
     }
   </script>
 </body>
