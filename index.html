@@ -350,15 +350,15 @@ footer a:hover {
 
    <!-- Các nút chọn mệnh giá -->
   <div class="donate-buttons">
-    <button onclick="showQR(10000, 'Ung ho Cafe')">☕ 10,000 VND</button>
-    <button onclick="showQR(20000, 'Ung ho Cafe')">🍰 20,000 VND</button>
-    <button onclick="showQR(50000, 'Ung ho Cafe')">🎁 50,000 VND</button>
-    <button onclick="showQR(100000, 'Ung ho Cafe')">🚀 100,000 VND</button>
-    <button onclick="showQR(150000, 'Ung ho Cafe')">🎶 150,000 VND</button>
-    <button onclick="showQR(200000, 'Ung ho Cafe')">📚 200,000 VND</button>
-    <button onclick="showQR(300000, 'Ung ho Cafe')">💡 300,000 VND</button>
-    <button onclick="showQR(400000, 'Ung ho Cafe')">🥂 400,000 VND</button>
-    <button onclick="showQR(500000, 'Ung ho Cafe')">👑 500,000 VND</button>
+    <button onclick="showQR(10000, 'Ung ho Cafe', '')">☕ 10,000 VND</button>
+    <button onclick="showQR(20000, 'Ung ho Cafe', '')">🍰 20,000 VND</button>
+    <button onclick="showQR(50000, 'Ung ho Cafe', '')">🎁 50,000 VND</button>
+    <button onclick="showQR(100000, 'Ung ho Cafe', '')">🚀 100,000 VND</button>
+    <button onclick="showQR(150000, 'Ung ho Cafe', '')">🎶 150,000 VND</button>
+    <button onclick="showQR(200000, 'Ung ho Cafe', '')">📚 200,000 VND</button>
+    <button onclick="showQR(300000, 'Ung ho Cafe', '')">💡 300,000 VND</button>
+    <button onclick="showQR(400000, 'Ung ho Cafe', '')">🥂 400,000 VND</button>
+    <button onclick="showQR(500000, 'Ung ho Cafe', '')">👑 500,000 VND</button>
   </div>
 
   <!-- Ô nhập số tiền và nội dung -->
@@ -434,27 +434,7 @@ function animateValue(id, start, end, duration) {
     }
   }, stepTime);
 }
-    function showQR(amount, info) {
-      let bankAccount = "101601626628";
-      let bankName = "VietinBank";
-      let accountName = "VAN NGAN";
-      let addInfo = encodeURIComponent(info);
-
-      let qrLink = `https://img.vietqr.io/image/${bankName}-${bankAccount}-compact2.jpg?amount=${amount}&addInfo=${addInfo}&accountName=${accountName}`;
-
-      document.getElementById("qrImage").src = qrLink;
-      document.getElementById("qrDownload").href = qrLink;
-      document.getElementById("popup").style.display = "block";
-
-      fetch(API_URL, {
-        method: "POST",
-        body: JSON.stringify({
-          amount: amount,
-          info: info
-        })
-      });
-    }
-
+    
    function customDonate() {
   let amount = parseInt(document.getElementById("customAmount").value) || 0;
   let name = document.getElementById("customName").value.trim();
