@@ -14,272 +14,124 @@
       opacity: 0;
       animation: fadeIn 2s forwards;
     }
-    /* Banner đầu trang */
+
     .banner {
       background: linear-gradient(90deg, #ffd700, #ff9800);
       color: #000;
       padding: 20px;
       font-size: 1.5em;
       font-weight: bold;
-      text-shadow: 1px 1px 3px #fff;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
     }
-    img.avatar {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      border: 3px solid #ffd700;
-      box-shadow: 0 0 15px #000;
-      margin-top: 20px;
-      margin-bottom: 15px;
+
+    .dashboard {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin: 20px;
     }
-    .intro {
-      font-size: 1.3em;
-      color: #ffd700;
-      text-shadow: 1px 1px 3px #000;
-      margin-bottom: 25px;
-    }
-    h2 {
-      color: #ffd700;
-      text-shadow: 2px 2px 4px #000;
-      font-size: 2.5em;
-    }
-    .info-box, .guide-box {
-      background: rgba(0,0,0,0.6);
+
+    .card {
+      background: #111;
       border: 2px solid #ffd700;
       border-radius: 12px;
       padding: 20px;
-      margin: 20px auto;
-      max-width: 600px;
-      text-align: left;
-      box-shadow: 0 0 15px #000;
+      min-width: 150px;
     }
-    .info-box h3, .guide-box h3 {
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #000;
       color: #ffd700;
-      margin-bottom: 10px;
-    }
-    .info-box p, .guide-box li {
-      font-size: 1.1em;
-      margin: 5px 0;
-    }
-    .guide-box ul {
-      list-style: none;
-      padding: 0;
-    }
-    .guide-box li::before {
-      content: "✔ ";
-      color: #ffd700;
-    }
-    .donate-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    .donate-buttons button {
-      margin: 10px;
-      padding: 20px 30px;
-      font-size: 1.2em;
-      border: none;
+      padding: 15px;
       border-radius: 10px;
-      cursor: pointer;
-      background: rgba(255, 64, 129, 0.9);
-      color: white;
-      box-shadow: 2px 2px 6px #000;
-      flex: 1 1 40%;
-      transition: transform 0.2s, box-shadow 0.2s;
-      animation: pulse 2s infinite;
+      display: none;
     }
-    .donate-buttons button:hover {
-      background: rgba(233, 30, 99, 0.9);
-      transform: scale(1.05);
-      box-shadow: 0 0 15px #ff80ab;
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    .custom-amount {
-      margin-top: 20px;
-    }
-    .custom-amount input {
-      padding: 10px;
-      font-size: 1em;
-      border-radius: 8px;
-      border: none;
-      width: 200px;
-      text-align: center;
-      margin: 5px;
-    }
-    .custom-amount button {
-      margin-left: 10px;
-      padding: 10px 20px;
-      font-size: 1em;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      background: #4caf50;
-      color: white;
-      box-shadow: 2px 2px 6px #000;
-    }
-    .custom-amount button:hover {
-      background: #45a049;
-    }
-    /* Popup QR */
+
     .popup {
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: rgba(0,0,0,0.95);
-      color: #ffd700;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 20px #000;
-      display: none;
-      text-align: center;
-      z-index: 999;
-      animation: fadeIn 0.5s;
-    }
-    .popup img {
-      width: 250px;
-      border: 3px solid #ffd700;
-      border-radius: 12px;
-      box-shadow: 0 0 15px #000;
-      margin-bottom: 15px;
-    }
-    #saveBtn {
-      padding: 10px 20px;
-      font-size: 1em;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      background: #ffd700;
-      color: #000;
-      box-shadow: 2px 2px 6px #000;
-    }
-    #saveBtn:hover {
-      background: #ffeb3b;
-    }
-    .closeBtn {
-      margin-top: 15px;
-      cursor: pointer;
-      color: #fff;
-      font-size: 0.9em;
-      text-decoration: underline;
-    }
-    footer {
-      margin-top: 50px;
-      font-size: 1em;
-      color: #ffd700;
-      text-shadow: 1px 1px 3px #000;
+      background: black;
       padding: 20px;
-      background: rgba(0,0,0,0.6);
+      display: none;
     }
   </style>
 </head>
+
 <body>
-  <!-- Banner -->
-  <div class="banner">Ủng hộ Văn Ngân – Cảm ơn sự đóng góp của bạn</div>
 
-  <img src="ca-nhan.jpg" alt="Ảnh cá nhân" class="avatar">
-  <div class="intro">Xin chào, tôi là Văn Ngân</div>
+<div class="banner">Ủng hộ Văn Ngân</div>
 
-  <h2>Ủng hộ tôi qua chuyển khoản ngân hàng</h2>
+<div class="dashboard">
+  <div class="card"><h3>💰 Tổng</h3><p id="totalAmount">0</p></div>
+  <div class="card"><h3>👥 Lượt</h3><p id="totalCount">0</p></div>
+  <div class="card"><h3>🥇 Top</h3><p id="topDonor">---</p></div>
+</div>
 
-  <!-- Khung thông tin tài khoản -->
-  <div class="info-box">
-    <h3>Thông tin tài khoản</h3>
-    <img src="vietinbank-logo.png" alt="Logo VietinBank" 
-         style="width:120px; margin-bottom:10px; display:block; margin-left:auto; margin-right:auto;">
-    <p><strong>Ngân hàng:</strong> VietinBank</p>
-    <p><strong>Số tài khoản:</strong> 101601626628</p>
-    <p><strong>Chủ tài khoản:</strong> Văn Ngân</p>
-  </div>
+<button onclick="showQR(100000,'Ung ho')">Ủng hộ 100K</button>
 
-  <!-- Khung hướng dẫn -->
-  <div class="guide-box">
-    <h3>Hướng dẫn ủng hộ</h3>
-    <ul>
-      <li>Chọn số tiền hoặc nhập số tiền tùy ý</li>
-      <li>Quét mã QR bằng ứng dụng ngân hàng của bạn</li>
-      <li>Xác nhận chuyển khoản với nội dung mong muốn</li>
-    </ul>
-  </div>
+<div id="popup" class="popup">
+  <img id="qrImage" width="200"><br>
+  <button onclick="downloadQR()">Tải QR</button>
+</div>
 
-   <!-- Các nút chọn mệnh giá -->
-  <div class="donate-buttons">
-    <button onclick="showQR(10000, 'Ung ho Cafe')">10,000 VND</button>
-    <button onclick="showQR(20000, 'Ung ho Cafe')">20,000 VND</button>
-    <button onclick="showQR(50000, 'Ung ho Cafe')">50,000 VND</button>
-    <button onclick="showQR(100000, 'Ung ho Cafe')">100,000 VND</button>
-    <button onclick="showQR(150000, 'Ung ho Cafe')">150,000 VND</button>
-    <button onclick="showQR(200000, 'Ung ho Cafe')">200,000 VND</button>
-    <button onclick="showQR(300000, 'Ung ho Cafe')">300,000 VND</button>
-    <button onclick="showQR(400000, 'Ung ho Cafe')">400,000 VND</button>
-    <button onclick="showQR(500000, 'Ung ho Cafe')">500,000 VND</button>
-  </div>
+<div id="toast" class="toast"></div>
 
-  <!-- Ô nhập số tiền và nội dung -->
-  <div class="custom-amount">
-    <input type="number" id="customAmount" placeholder="Nhập số tiền (VND)">
-    <input type="text" id="customInfo" placeholder="Nội dung chuyển khoản (không dấu)">
-    <button onclick="customDonate()">Tạo QR</button>
-  </div>
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbzc8CodccOwXDNEnOs2ChMqvbU-TbX1DKcF0ayOCLBRhrRBQl0Ag0kawxDd1gB1V2gY/exec";
+let lastCount = 0;
 
-  <!-- Popup QR -->
-  <div id="popup" class="popup">
-    <p>Quét mã QR bằng ứng dụng ngân hàng của bạn:</p>
-    <img id="qrImage" src="" alt="QR Code">
-    <br>
-    <a id="qrDownload" href="" download="qr-chuyenkhoan.jpg">
-      <button id="saveBtn">Lưu ảnh mã QR</button>
-    </a>
-    <p style="font-size:0.9em; color:#ffd700;">
-      iPhone: giữ tay vào ảnh QR và chọn "Lưu ảnh".<br>
-      Android: ảnh sẽ tự tải về máy.
-    </p>
-    <div class="closeBtn" onclick="closePopup()">Đóng</div>
-  </div>
+function showQR(amount, info) {
+  let qrLink = `https://img.vietqr.io/image/VietinBank-101601626628-compact2.jpg?amount=${amount}&addInfo=${info}&accountName=VAN NGAN`;
+  document.getElementById("qrImage").src = qrLink;
+  document.getElementById("popup").style.display = "block";
 
-  <footer>
-    © 2026 Văn Ngân – Cảm ơn sự ủng hộ của bạn
-  </footer>
+  fetch(API_URL, {
+    method: "POST",
+    body: JSON.stringify({amount, info})
+  });
 
-  <script>
-    function showQR(amount, info) {
-      let bankAccount = "101601626628";
-      let bankName = "VietinBank";
-      let accountName = "VAN NGAN";
-      let addInfo = encodeURIComponent(info);
+  showToast({amount, info});
+}
 
-      let qrLink = `https://img.vietqr.io/image/${bankName}-${bankAccount}-compact2.jpg?amount=${amount}&addInfo=${addInfo}&accountName=${accountName}`;
+function downloadQR() {
+  let img = document.getElementById("qrImage").src;
+  fetch(img).then(r=>r.blob()).then(blob=>{
+    let a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);
+    a.download="qr.png";
+    a.click();
+  });
+}
 
-      document.getElementById("qrImage").src = qrLink;
-      document.getElementById("qrDownload").href = qrLink;
-      document.getElementById("popup").style.display = "block";
-    }
+function loadDashboard() {
+  fetch(API_URL).then(r=>r.json()).then(data=>{
+    let total = data.reduce((s,i)=>s+Number(i.amount||0),0);
+    document.getElementById("totalAmount").innerText = total.toLocaleString()+" VND";
+    document.getElementById("totalCount").innerText = data.length;
 
-    function customDonate() {
-      let amount = document.getElementById("customAmount").value;
-      let info = document.getElementById("customInfo").value || "Ung ho Van Ngan";
-      if (amount && amount > 0) {
-        showQR(amount, info);
-      } else {
-        alert("Vui lòng nhập số tiền hợp lệ!");
-      }
-    }
+    let top = data.sort((a,b)=>b.amount-a.amount)[0];
+    if(top) document.getElementById("topDonor").innerText = top.info+" ("+top.amount+")";
 
-    function closePopup() {
-      document.getElementById("popup").style.display = "none";
-    }
-  </script>
+    if(data.length>lastCount) showToast(data[data.length-1]);
+    lastCount = data.length;
+  });
+}
+
+function showToast(item) {
+  let t=document.getElementById("toast");
+  t.innerText = item.info+" vừa ủng hộ "+item.amount;
+  t.style.display="block";
+  setTimeout(()=>t.style.display="none",3000);
+}
+
+loadDashboard();
+setInterval(loadDashboard,10000);
+</script>
+
 </body>
 </html>
-
