@@ -487,13 +487,16 @@ function showQR(amount, info, name) {
 
   // Gửi dữ liệu lên Google Apps Script
   fetch(API_URL, {
-    method: "POST",
-    body: JSON.stringify({
-      amount: amount,
-      info: info,
-      name: name
-    })
-  });
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    amount: amount,
+    info: info,
+    name: name
+  })
+});
 }
 // Thêm sự kiện click vào overlay để đóng popup
 document.getElementById("overlay").addEventListener("click", closePopup);
