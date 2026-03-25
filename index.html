@@ -2,7 +2,8 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Ủng hộ Văn Ngân</title>
+  <title>Ủng hộ Nguyễn Văn Ngân - VietinBank</title>
+<link rel="icon" href="vietinbank-logo.png" type="image/png">
   <style>
     body {
       font-family: 'Montserrat', Arial, sans-serif;
@@ -349,7 +350,8 @@ footer a:hover {
       Android: ảnh sẽ tự tải về máy.
     </p>
     <div class="closeBtn" onclick="closePopup()">Đóng</div>
-  </div>
+  <p style="margin-top:10px; color:#ffeb3b;">Cảm ơn bạn đã ủng hộ! 💖</p>
+</div>
 
   <div class="history-box">
   <h3>Lịch sử ủng hộ</h3>
@@ -450,7 +452,10 @@ document.getElementById("overlay").addEventListener("click", closePopup);
 
   
 function loadData() {
-  fetch(API_URL)
+document.getElementById("totalAmount").innerText = "Đang tải...";
+document.getElementById("totalCount").innerText = "...";
+document.getElementById("topDonor").innerText = "...";
+fetch(API_URL)
     .then(res => res.json())
     .then(data => {
       let total = data.reduce((s,i)=>s+Number(i.amount||0),0);
