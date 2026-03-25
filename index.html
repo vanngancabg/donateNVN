@@ -188,6 +188,10 @@
 .history-box {max-width:700px;margin:30px auto;background:rgba(0,0,0,0.7);padding:20px;border-radius:10px;}
 #donateTable {width:100%;border-collapse:collapse;}
 #donateTable th,#donateTable td {padding:8px;border-bottom:1px solid #555;}
+#donateTable tr:hover {
+  background-color: rgba(255, 215, 0, 0.2); /* nền vàng nhạt khi hover */
+  cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -312,8 +316,36 @@ const API_URL = "https://script.google.com/macros/s/AKfycbzc8CodccOwXDNEnOs2ChMq
     }
 
     function closePopup() {
-      document.getElementById("popup").style.display = "none";
-    }
+  document.getElementById("popup").style.display = "none";
+  document.getElementById("overlay").style.display = "none";
+}
+
+// Khi mở popup, nhớ bật overlay
+function showQR(amount, info) {
+  let bankAccount = "101601626628";
+  let bankName = "VietinBank";
+  let accountName = "VAN NGAN";
+  let addInfo = encodeURIComponent(info);
+
+  let qrLink = `https://img.vietqr.io/image/${bankName}-${bankAccount}-compact2.jpg?amount=${amount}&addInfo=${addInfo}&accountName=${accountName}`;
+
+  document.getElementById("qrImage").src = qrLink;
+  document.getElementById("qrDownload").href = qrLink;
+  document.getElementById("popup").style.display = "block";
+  document.getElementById("overlay").style.display = "block";
+
+  fetch(API_URL, {
+    method: "POST",
+    body: JSON.stringify({
+      amount: amount,
+      info: info
+    })
+  });
+}
+
+// Thêm sự kiện click vào overlay để đóng popup
+document.getElementById("overlay").addEventListener("click", closePopup);
+
   
 function loadData() {
   fetch(API_URL)
