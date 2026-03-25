@@ -363,7 +363,9 @@ footer a:hover {
 
   <!-- Ô nhập số tiền và nội dung -->
   <div class="custom-amount">
-    <input type="text" id="customAmount" placeholder="Nhập số tiền (VND)">
+    <input type="number" id="customAmount" placeholder="Nhập số tiền (VND)" step="10000" min="10000">
+<input type="number" id="customAmount" placeholder="Nhập số tiền (VND)" step="10000" min="10000">
+<span id="formattedAmount" style="margin-left:10px; color:#ffd700; font-weight:bold;"></span>
     <input type="text" id="customInfo" placeholder="Nội dung chuyển khoản (không dấu)">
     <button onclick="customDonate()">Tạo QR</button>
   </div>
@@ -451,8 +453,7 @@ function animateValue(id, start, end, duration) {
     }
 
     function customDonate() {
-      let rawAmount = document.getElementById("customAmount").value.replace(/\D/g,"");
-let amount = rawAmount ? parseInt(rawAmount) : 0;
+      let amount = parseInt(document.getElementById("customAmount").value) || 0;
       let info = document.getElementById("customInfo").value.trim();
 if (!info) {
   info = "ung ho cafe cho Ngan";
@@ -566,11 +567,11 @@ document.getElementById("customAmount").addEventListener("keydown", function(e) 
 
 
 document.getElementById("customAmount").addEventListener("input", function(e) {
-  let value = e.target.value.replace(/\D/g, ""); // chỉ giữ số
+  let value = e.target.value;
   if (value) {
-    e.target.value = Number(value).toLocaleString("vi-VN"); // hiển thị có dấu chấm ngăn cách
+    document.getElementById("formattedAmount").innerText = Number(value).toLocaleString("vi-VN") + " VND";
   } else {
-    e.target.value = "";
+    document.getElementById("formattedAmount").innerText = "";
   }
 });
 
