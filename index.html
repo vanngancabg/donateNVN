@@ -208,8 +208,30 @@
   box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
 }
 .history-box {max-width:700px;margin:30px auto;background:rgba(0,0,0,0.7);padding:20px;border-radius:10px;}
-#donateTable {width:100%;border-collapse:collapse;}
-#donateTable th,#donateTable td {padding:8px;border-bottom:1px solid #555;}
+#donateTable {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden; /* để viền bo tròn hiển thị đúng */
+}
+
+#donateTable th {
+  background-color: #ffd700;
+  color: #000;
+  font-weight: bold;
+  text-align: left;
+  padding: 10px;
+}
+
+#donateTable td {
+  padding: 10px;
+  border-bottom: 1px solid #555;
+  color: #fff;
+}
+
+#donateTable tr:hover {
+  background-color: rgba(255, 215, 0, 0.2); /* hiệu ứng hover */
+}
 #donateTable tr:hover {
   background-color: rgba(255, 215, 0, 0.2); /* nền vàng nhạt khi hover */
   cursor: pointer;
