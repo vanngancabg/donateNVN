@@ -451,7 +451,8 @@ function animateValue(id, start, end, duration) {
     }
 
     function customDonate() {
-      let amount = document.getElementById("customAmount").value;
+      let rawAmount = document.getElementById("customAmount").value.replace(/\D/g,"");
+let amount = rawAmount ? parseInt(rawAmount) : 0;
       let info = document.getElementById("customInfo").value.trim();
 if (!info) {
   info = "ung ho cafe cho Ngan";
@@ -462,11 +463,11 @@ if (!info) {
     return;
   }
 }
-      if (amount && amount > 0) {
-        showQR(amount, info);
-      } else {
-        alert("Vui lòng nhập số tiền hợp lệ!");
-      }
+     if (amount >= 10000) {
+  showQR(amount, info);
+} else {
+  alert("Số tiền tối thiểu là 10,000 VND!");
+}
     }
 
     function closePopup() {
