@@ -485,17 +485,12 @@ function showQR(amount, info, name) {
   document.getElementById("qrDownload").href = qrLink;
   document.getElementById("popup").style.display = "block";
 
-  // Gửi dữ liệu lên Google Apps Script
-  fetch(API_URL, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    amount: amount,
-    info: info,
-    name: name
-  })
+  // Lưu dữ liệu vào Firebase
+firebase.database().ref("donations").push({
+  time: new Date().toISOString(),
+  name: name,
+  amount: amount,
+  info: info
 });
 }
 // Thêm sự kiện click vào overlay để đóng popup
@@ -506,28 +501,32 @@ function loadData() {
 document.getElementById("totalAmount").innerText = "Đang tải...";
 document.getElementById("totalCount").innerText = "...";
 document.getElementById("topDonor").innerText = "...";
-fetch(API_URL)
-    .then(res => res.json())
-    .then(data => {
-      let total = data.reduce((s,i)=>s+Number(i.amount||0),0);
-      animateValue("totalAmount", 0, total, 1000);
-      document.getElementById("totalCount").innerText = data.length;
-      let top = data.sort((a,b)=>b.amount-a.amount)[0];
-      if(top){
-        document.getElementById("topDonor").innerText = top.info+" ("+top.amount+")";
-      }
-      let tbody=document.querySelector("#donateTable tbody");
-      tbody.innerHTML="";
-document.getElementById("lastUpdate").innerText = "Cập nhật: " + new Date().toLocaleString();
-      data.reverse().slice(0,10).forEach(item=>{
-        tbody.innerHTML+=`<tr>
-  <td>${new Date(item.time).toLocaleString()}</td>
-  <td>${Number(item.amount).toLocaleString()}</td>
-  <td>${item.info}</td>
-  <td>${item.name || ""}</td>
-</tr>`;
-      });
-    });
+firebase.database().ref("donations").on("value", (snapshot) => {
+  const data = snapshot.val();
+  let list = Object.values(data || {});
+  
+  let total = list.reduce((s,i)=>s+Number(i.amount||0),0);
+  animateValue("totalAmount", 0, total, 1000);
+  document.getElementById("totalCount").innerText = list.length;
+  
+  let top = list.sort((a,b)=>b.amount-a.amount)[0];
+  if(top){
+    document.getElementById("topDonor").innerText = top.info+" ("+top.amount+")";
+  }
+  
+  let tbody=document.querySelector("#donateTable tbody");
+  tbody.innerHTML="";
+  document.getElementById("lastUpdate").innerText = "Cập nhật: " + new Date().toLocaleString();
+  
+  list.reverse().slice(0,10).forEach(item=>{
+    tbody.innerHTML+=`<tr>
+      <td>${new Date(item.time).toLocaleString()}</td>
+      <td>${Number(item.amount).toLocaleString()}</td>
+      <td>${item.info}</td>
+      <td>${item.name || ""}</td>
+    </tr>`;
+  });
+});
 }
 loadData();
 setInterval(loadData,10000);
@@ -553,5 +552,14 @@ document.getElementById("customAmount").addEventListener("input", function(e) {
 
 </script>
 <div id="toast">Đã copy số tài khoản!</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+
+<script>
+  // Khởi tạo Firebase
+  const app = firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+</script>
 </body>
 </html>
