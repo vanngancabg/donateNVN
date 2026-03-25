@@ -548,21 +548,6 @@ function copyAccount() {
   setTimeout(()=> { toast.className = toast.className.replace("show", ""); }, 2000);
 }
 
-document.getElementById("customAmount").addEventListener("keydown", function(e) {
-  let raw = e.target.value.replace(/\D/g, "");
-  let amount = raw ? parseInt(raw) : 0;
-
-  if (e.key === "ArrowUp") {
-    amount += 10000;
-    e.target.value = amount.toLocaleString("vi-VN");
-    e.preventDefault();
-  }
-  if (e.key === "ArrowDown") {
-    amount = Math.max(0, amount - 10000);
-    e.target.value = amount.toLocaleString("vi-VN");
-    e.preventDefault();
-  }
-});
 
 
 document.getElementById("customAmount").addEventListener("input", function(e) {
