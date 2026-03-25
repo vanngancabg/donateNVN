@@ -1,6 +1,26 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyB3JgL2vqXy2CD_QM5ZLBRqwS4f7GobjHU",
+    authDomain: "donate-data-7130e.firebaseapp.com",
+    databaseURL: "https://donate-data-7130e-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "donate-data-7130e",
+    storageBucket: "donate-data-7130e.firebasestorage.app",
+    messagingSenderId: "518094800699",
+    appId: "1:518094800699:web:95a4052b26216c49ef591e",
+    measurementId: "G-MFNZ2CN9K1"
+  };
+
+  // Khởi tạo Firebase
+  const app = firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+</script>
+
   <meta charset="UTF-8">
   <title>Ủng hộ Nguyễn Văn Ngân - VietinBank</title>
 <link rel="icon" href="vietinbank-logo.png" type="image/png">
@@ -553,24 +573,5 @@ document.getElementById("customAmount").addEventListener("input", function(e) {
 </script>
 <div id="toast">Đã copy số tài khoản!</div>
 
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
-
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyB3JgL2vqXy2CD_QM5ZLBRqwS4f7GobjHU",
-    authDomain: "donate-data-7130e.firebaseapp.com",
-    databaseURL: "https://donate-data-7130e-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "donate-data-7130e",
-    storageBucket: "donate-data-7130e.firebasestorage.app",
-    messagingSenderId: "518094800699",
-    appId: "1:518094800699:web:95a4052b26216c49ef591e",
-    measurementId: "G-MFNZ2CN9K1"
-  };
-
-  // Khởi tạo Firebase
-  const app = firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
-</script>
 </body>
 </html>
