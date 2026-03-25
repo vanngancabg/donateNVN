@@ -280,6 +280,36 @@ footer a:hover {
   background-color: rgba(255, 215, 0, 0.2); /* nền vàng nhạt khi hover */
   cursor: pointer;
 }
+.counter {
+  font-size: 1.3em;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+#toast {
+  visibility: hidden;
+  min-width: 200px;
+  background-color: #333;
+  color: #ffd700;
+  text-align: center;
+  border-radius: 8px;
+  padding: 10px;
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+#toast.show {
+  visibility: visible;
+  animation: fadeInOut 2s;
+}
+@keyframes fadeInOut {
+  0% {opacity: 0;}
+  10% {opacity: 1;}
+  90% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
 </style>
 </head>
 <body>
@@ -382,6 +412,23 @@ footer a:hover {
 
   <script>
 const API_URL = "https://script.google.com/macros/s/AKfycbzc8CodccOwXDNEnOs2ChMqvbU-TbX1DKcF0ayOCLBRhrRBQl0Ag0kawxDd1gB1V2gY/exec";
+function animateValue(id, start, end, duration) {
+  let obj = document.getElementById(id);
+  let range = end - start;
+  let minTimer = 50;
+  let stepTime = Math.max(Math.floor(duration / range), minTimer);
+  let startTime = new Date().getTime();
+  let endTime = startTime + duration;
+  let timer = setInterval(function() {
+    let now = new Date().getTime();
+    let remaining = Math.max((endTime - now) / duration, 0);
+    let value = Math.round(end - (remaining * range));
+    obj.innerText = value.toLocaleString() + " VND";
+    if (value == end) {
+      clearInterval(timer);
+    }
+  }, stepTime);
+}
     function showQR(amount, info) {
       let bankAccount = "101601626628";
       let bankName = "VietinBank";
@@ -463,7 +510,7 @@ fetch(API_URL)
     .then(res => res.json())
     .then(data => {
       let total = data.reduce((s,i)=>s+Number(i.amount||0),0);
-      document.getElementById("totalAmount").innerText = total.toLocaleString()+" VND";
+      animateValue("totalAmount", 0, total, 1000);
       document.getElementById("totalCount").innerText = data.length;
       let top = data.sort((a,b)=>b.amount-a.amount)[0];
       if(top){
@@ -486,9 +533,12 @@ setInterval(loadData,10000);
 
 function copyAccount() {
   navigator.clipboard.writeText("101601626628");
-  alert("Đã copy số tài khoản!");
+  let toast = document.getElementById("toast");
+  toast.className = "show";
+  setTimeout(()=> { toast.className = toast.className.replace("show", ""); }, 2000);
 }
 
 </script>
+<div id="toast">Đã copy số tài khoản!</div>
 </body>
 </html>
