@@ -183,13 +183,26 @@
       text-decoration: underline;
     }
     footer {
-      margin-top: 50px;
-      font-size: 1em;
-      color: #ffd700;
-      text-shadow: 1px 1px 3px #000;
-      padding: 20px;
-      background: rgba(0,0,0,0.6);
-    }
+  margin-top: 50px;
+  font-size: 1.1em;
+  color: #fff;
+  text-align: center;
+  padding: 25px;
+  background: linear-gradient(90deg, #1a1a1a, #333);
+  border-top: 2px solid #ffd700;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
+}
+
+footer a {
+  color: #ffd700;
+  text-decoration: none;
+  margin: 0 10px;
+  transition: color 0.3s;
+}
+
+footer a:hover {
+  color: #ffeb3b;
+}
   
 .dashboard {
   display: flex;
@@ -331,8 +344,12 @@
 </div>
 
 <footer>
-    © 2026 Văn Ngân – Cảm ơn sự ủng hộ của bạn
-  </footer>
+  © 2026 Nguyễn Văn Ngân – Cảm ơn sự ủng hộ của bạn<br>
+  Liên hệ: 
+  <a href="mailto:nguyenvanngan@example.com">Email</a> | 
+  <a href="https://facebook.com/nguyenvanngan" target="_blank">Facebook</a> | 
+  <a href="https://zalo.me/123456789" target="_blank">Zalo</a>
+</footer>
 
   <script>
 const API_URL = "https://script.google.com/macros/s/AKfycbzc8CodccOwXDNEnOs2ChMqvbU-TbX1DKcF0ayOCLBRhrRBQl0Ag0kawxDd1gB1V2gY/exec";
