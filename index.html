@@ -486,7 +486,7 @@ function showQR(amount, info, name) {
   document.getElementById("popup").style.display = "block";
 
   // Lưu dữ liệu vào Firebase
-firebase.database().ref("donations").push({
+db.ref("donations").push({
   time: new Date().toISOString(),
   name: name,
   amount: amount,
@@ -501,7 +501,7 @@ function loadData() {
 document.getElementById("totalAmount").innerText = "Đang tải...";
 document.getElementById("totalCount").innerText = "...";
 document.getElementById("topDonor").innerText = "...";
-firebase.database().ref("donations").on("value", (snapshot) => {
+db.ref("donations").on("value", (snapshot) => {
   const data = snapshot.val();
   let list = Object.values(data || {});
   
