@@ -78,19 +78,26 @@
       margin: 0 auto;
     }
     .donate-buttons button {
-      margin: 10px;
-      padding: 20px 30px;
-      font-size: 1.2em;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      background: rgba(255, 64, 129, 0.9);
-      color: white;
-      box-shadow: 2px 2px 6px #000;
-      flex: 1 1 40%;
-      transition: transform 0.2s, box-shadow 0.2s;
-      animation: pulse 2s infinite;
-    }
+  margin: 10px;
+  padding: 20px 30px;
+  font-size: 1.2em;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #ff4081, #ff9800);
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  flex: 1 1 40%;
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: pulse 2s infinite;
+}
+
+.donate-buttons button:hover {
+  background: linear-gradient(135deg, #e91e63, #ff5722);
+  transform: scale(1.08);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+}
     .donate-buttons button:hover {
       background: rgba(233, 30, 99, 0.9);
       transform: scale(1.05);
