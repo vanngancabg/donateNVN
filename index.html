@@ -471,9 +471,21 @@ function animateValue(id, start, end, duration) {
   }, 500); // 500ms trùng với thời gian animation
 }
 
-// Khi mở popup, nhớ bật overlay
 function showQR(amount, info, name) {
-  ...
+  let bankAccount = "101601626628";
+  let bankName = "VietinBank";
+  let accountName = "VAN NGAN";
+  let addInfo = encodeURIComponent(info);
+
+  // Tạo link QR
+  let qrLink = `https://img.vietqr.io/image/${bankName}-${bankAccount}-compact2.jpg?amount=${amount}&addInfo=${addInfo}&accountName=${accountName}`;
+
+  // Hiển thị QR trong popup
+  document.getElementById("qrImage").src = qrLink;
+  document.getElementById("qrDownload").href = qrLink;
+  document.getElementById("popup").style.display = "block";
+
+  // Gửi dữ liệu lên Google Apps Script
   fetch(API_URL, {
     method: "POST",
     body: JSON.stringify({
