@@ -557,6 +557,18 @@ document.getElementById("customAmount").addEventListener("input", function(e) {
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
 
 <script>
+  // Cấu hình Firebase của dự án bạn
+  const firebaseConfig = {
+    apiKey: "AIzaSyB3JgL2vqXy2CD_QM5ZLBRqwS4f7GobjHU",
+    authDomain: "donate-data-7130e.firebaseapp.com",
+    databaseURL: "https://donate-data-7130e-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "donate-data-7130e",
+    storageBucket: "donate-data-7130e.firebasestorage.app",
+    messagingSenderId: "518094800699",
+    appId: "1:518094800699:web:95a4052b26216c49ef591e",
+    measurementId: "G-MFNZ2CN9K1"
+  };
+
   // Khởi tạo Firebase
   const app = firebase.initializeApp(firebaseConfig);
   const db = firebase.database();
