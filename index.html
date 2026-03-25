@@ -363,7 +363,7 @@ footer a:hover {
 
   <!-- Ô nhập số tiền và nội dung -->
   <div class="custom-amount">
-    <input type="number" id="customAmount" placeholder="Nhập số tiền (VND)">
+    <input type="text" id="customAmount" placeholder="Nhập số tiền (VND)">
     <input type="text" id="customInfo" placeholder="Nội dung chuyển khoản (không dấu)">
     <button onclick="customDonate()">Tạo QR</button>
   </div>
@@ -452,7 +452,16 @@ function animateValue(id, start, end, duration) {
 
     function customDonate() {
       let amount = document.getElementById("customAmount").value;
-      let info = document.getElementById("customInfo").value || "Ung ho Van Ngan";
+      let info = document.getElementById("customInfo").value.trim();
+if (!info) {
+  info = "ung ho cafe cho Ngan";
+} else {
+  // kiểm tra có dấu tiếng Việt
+  if (/[ăâđêôơưáàảãạéèẻẽẹíìỉĩịóòỏõọúùủũụýỳỷỹỵ]/i.test(info)) {
+    alert("Vui lòng nhập nội dung không dấu để phù hợp với ngân hàng!");
+    return;
+  }
+}
       if (amount && amount > 0) {
         showQR(amount, info);
       } else {
@@ -537,6 +546,33 @@ function copyAccount() {
   toast.className = "show";
   setTimeout(()=> { toast.className = toast.className.replace("show", ""); }, 2000);
 }
+
+document.getElementById("customAmount").addEventListener("keydown", function(e) {
+  let raw = e.target.value.replace(/\D/g, "");
+  let amount = raw ? parseInt(raw) : 0;
+
+  if (e.key === "ArrowUp") {
+    amount += 10000;
+    e.target.value = amount.toLocaleString("vi-VN");
+    e.preventDefault();
+  }
+  if (e.key === "ArrowDown") {
+    amount = Math.max(0, amount - 10000);
+    e.target.value = amount.toLocaleString("vi-VN");
+    e.preventDefault();
+  }
+});
+
+
+document.getElementById("customAmount").addEventListener("input", function(e) {
+  let value = e.target.value.replace(/\D/g, ""); // chỉ giữ số
+  if (value) {
+    e.target.value = Number(value).toLocaleString("vi-VN"); // hiển thị có dấu chấm ngăn cách
+  } else {
+    e.target.value = "";
+  }
+});
+
 
 </script>
 <div id="toast">Đã copy số tài khoản!</div>
