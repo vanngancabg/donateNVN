@@ -16,6 +16,7 @@ const popupInfo = document.getElementById('popupInfo');
 const customAmountInput = document.getElementById('customAmount');
 const customNameInput = document.getElementById('customName');
 const customInfoInput = document.getElementById('customInfo');
+const customDonateBtn = document.getElementById('customDonateBtn');
 const formattedAmount = document.getElementById('formattedAmount');
 const toast = document.getElementById('toast');
 const tableBody = document.querySelector('#donateTable tbody');
@@ -192,9 +193,20 @@ function handleCustomDonate() {
   createQr(customAmountInput.value, 'ung ho Nguyen Van Ngan');
 }
 
+function updateDonateButtonState() {
+  const amount = Number(customAmountInput.value);
+  const info = customInfoInput.value.trim();
+
+  const isValid = amount >= 10000 && info.length > 0;
+
+  customDonateBtn.disabled = !isValid;
+  customDonateBtn.classList.toggle('disabled', !isValid);
+}
+
 function updateFormattedAmount() {
   const value = customAmountInput.value;
   formattedAmount.textContent = value ? formatMoney(value) : '';
+  updateDonateButtonState();
 }
 
 async function copyAccountNumber() {
@@ -226,12 +238,16 @@ function registerEvents() {
   clearHistoryBtn.addEventListener('click', clearHistory);
   overlay.addEventListener('click', closePopup);
 
-  customAmountInput.addEventListener('input', () => {
+    customAmountInput.addEventListener('input', () => {
     amountButtons.forEach((item) => item.classList.remove('active'));
     updateFormattedAmount();
   });
+
+  customInfoInput.addEventListener('input', updateDonateButtonState);
+  customNameInput.addEventListener('input', updateDonateButtonState);
 }
 
 
 registerEvents();
 renderHistory();
+updateDonateButtonState();
