@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ủng hộ Nguyễn Văn Ngân - VietinBank</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="banner">Ủng hộ Văn Ngân – Cảm ơn sự đóng góp của bạn</div>
+
+  <main class="container">
+    <section class="dashboard">
+      <div class="card">
+        <h3>💰 Tổng demo</h3>
+        <p id="totalAmount" class="counter">0 VND</p>
+      </div>
+      <div class="card">
+        <h3>👥 Lượt demo</h3>
+        <p id="totalCount" class="counter">0</p>
+      </div>
+      <div class="card">
+        <h3>🥇 Gần nhất</h3>
+        <p id="topDonor" class="counter">---</p>
+      </div>
+    </section>
+
+    <img src="ca-nhan.jpg" alt="Ảnh cá nhân" class="avatar" onerror="this.style.display='none'">
+    <p class="intro">Xin chào, tôi là Nguyễn Văn Ngân</p>
+    <h1>Ủng hộ tôi qua chuyển khoản ngân hàng</h1>
+
+    <section class="info-box">
+      <h2>Thông tin tài khoản</h2>
+      <img src="vietinbank-logo.png" alt="Logo VietinBank" class="bank-logo" onerror="this.style.display='none'">
+      <p><strong>Ngân hàng:</strong> VietinBank</p>
+      <p><strong>Số tài khoản:</strong> <span id="accountNumber">101601626628</span></p>
+      <button type="button" class="secondary-btn" id="copyAccountBtn">Copy số tài khoản</button>
+      <p><strong>Chủ tài khoản:</strong> NGUYEN VAN NGAN</p>
+    </section>
+
+    <section class="guide-box">
+      <h2>Hướng dẫn ủng hộ</h2>
+      <ul>
+        <li>Chọn số tiền có sẵn hoặc nhập số tiền tùy ý.</li>
+        <li>Nhập nội dung chuyển khoản không dấu.</li>
+        <li>Bấm <strong>Tạo QR</strong> để hiện mã thanh toán.</li>
+        <li>Trang này chỉ là bản tĩnh chạy trên GitHub Pages, không tự xác nhận thanh toán thật.</li>
+      </ul>
+    </section>
+
+    <section class="donate-buttons">
+      <button type="button" data-amount="10000">☕ 10,000 VND</button>
+      <button type="button" data-amount="20000">🍰 20,000 VND</button>
+      <button type="button" data-amount="50000">🎁 50,000 VND</button>
+      <button type="button" data-amount="100000">🚀 100,000 VND</button>
+      <button type="button" data-amount="150000">🎶 150,000 VND</button>
+      <button type="button" data-amount="200000">📚 200,000 VND</button>
+      <button type="button" data-amount="300000">💡 300,000 VND</button>
+      <button type="button" data-amount="400000">🥂 400,000 VND</button>
+      <button type="button" data-amount="500000">👑 500,000 VND</button>
+    </section>
+
+    <section class="custom-amount">
+      <input type="text" id="customName" placeholder="Họ và tên người ủng hộ">
+      <input type="number" id="customAmount" placeholder="Nhập số tiền (VND)" step="10000" min="10000">
+      <span id="formattedAmount"></span>
+      <input type="text" id="customInfo" placeholder="Nội dung chuyển khoản (không dấu)">
+      <button type="button" class="primary-btn" id="customDonateBtn">Tạo QR</button>
+    </section>
+
+    <section class="history-box">
+      <h2>Lịch sử tạo QR trên máy này</h2>
+      <p id="lastUpdate">Chưa có dữ liệu</p>
+      <table id="donateTable">
+        <thead>
+          <tr>
+            <th>Thời gian</th>
+            <th>Họ và tên</th>
+            <th>Số tiền</th>
+            <th>Nội dung</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <div id="overlay" class="overlay hidden"></div>
+  <div id="popup" class="popup hidden" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+    <p id="popupTitle">Quét mã QR bằng ứng dụng ngân hàng của bạn</p>
+    <img id="qrImage" src="" alt="Mã QR chuyển khoản">
+    <a id="qrDownload" href="" download="qr-chuyenkhoan.jpg" class="primary-btn download-link">Lưu ảnh mã QR</a>
+    <p class="popup-note">
+      iPhone: giữ tay vào ảnh QR và chọn “Lưu ảnh”.<br>
+      Android: có thể bấm nút tải ảnh ở trên.
+    </p>
+    <p class="popup-note highlight">Mã QR được tạo từ VietQR.</p>
+    <button type="button" class="secondary-btn" id="closePopupBtn">Đóng</button>
+  </div>
+
+  <div id="toast">Đã copy số tài khoản!</div>
+
+  <footer>
+    © 2026 Nguyễn Văn Ngân – Cảm ơn sự ủng hộ của bạn<br>
+    Liên hệ:
+    <a href="mailto:vanngancabg@gmail.com">Email</a> |
+    <a href="https://www.facebook.com/NguyenVanNgan2018" target="_blank" rel="noopener noreferrer">Facebook</a> |
+    <a href="https://zalo.me/0936559126" target="_blank" rel="noopener noreferrer">Zalo</a> |
+    <a href="https://discord.com/users/814485088804143105" target="_blank" rel="noopener noreferrer">Discord</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
