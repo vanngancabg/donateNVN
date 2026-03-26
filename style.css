@@ -175,6 +175,13 @@ button,
   transform: translateY(-3px);
 }
 
+.donate-buttons button.active {
+  background: linear-gradient(135deg, var(--gold), #ffb300);
+  color: #111;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.18), var(--shadow);
+}
+
 .custom-amount {
   max-width: 100%;
   margin: 0 auto;
@@ -301,6 +308,29 @@ button:hover,
   z-index: 999;
 }
 
+.popup-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 14px;
+}
+
+.popup-summary {
+  text-align: left;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.18);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+}
+
+.popup-summary p {
+  margin: 6px 0;
+  color: #fff4bf;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
 .popup img {
   width: min(100%, 260px);
   border-radius: 12px;
@@ -318,6 +348,7 @@ button:hover,
 .popup-note.highlight {
   color: var(--gold-soft);
 }
+
 
 .hidden {
   display: none;
@@ -347,14 +378,23 @@ footer {
   font-size: 1rem;
   color: #fff;
   text-align: center;
-  padding: 24px;
+  padding: 28px 20px;
   background: linear-gradient(90deg, #1a1a1a, #333);
   border-top: 2px solid var(--gold);
+}
+
+footer p {
+  margin: 8px 0;
+  line-height: 1.7;
 }
 
 footer a {
   color: var(--gold);
   text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
 }
 
 @media (max-width: 900px) {
