@@ -81,13 +81,13 @@ function renderHistory() {
   tableBody.innerHTML = '';
 
   if (history.length === 0) {
-    tableBody.innerHTML = '<tr><td colspan="4">Chưa có lịch sử trên máy này.</td></tr>';
-    totalAmount.textContent = '0 VND';
-    totalCount.textContent = '0';
-    topDonor.textContent = '---';
-    lastUpdate.textContent = 'Chưa có dữ liệu';
-    return;
-  }
+  tableBody.innerHTML = '<tr><td colspan="4">Chưa có lịch sử trên máy này.</td></tr>';
+  totalAmount.textContent = '0 VND';
+  totalCount.textContent = '0';
+  topDonor.textContent = 'Chưa có dữ liệu';
+  lastUpdate.textContent = 'Chưa có dữ liệu';
+  return;
+}
 
   const total = history.reduce((sum, item) => sum + Number(item.amount || 0), 0);
   const latest = history[0];
