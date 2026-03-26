@@ -93,27 +93,40 @@
 
   <div id="overlay" class="overlay hidden"></div>
   <div id="popup" class="popup hidden" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
-    <p id="popupTitle">Quét mã QR bằng ứng dụng ngân hàng của bạn</p>
-    <img id="qrImage" src="" alt="Mã QR chuyển khoản">
-    <a id="qrDownload" href="" download="qr-chuyenkhoan.jpg" class="primary-btn download-link">Lưu ảnh mã QR</a>
-    <p class="popup-note">
-      iPhone: giữ tay vào ảnh QR và chọn “Lưu ảnh”.<br>
-      Android: có thể bấm nút tải ảnh ở trên.
-    </p>
-    <p class="popup-note highlight">Mã QR được tạo từ VietQR.</p>
-    <button type="button" class="secondary-btn" id="closePopupBtn">Đóng</button>
+  <p id="popupTitle" class="popup-title">Quét mã QR bằng ứng dụng ngân hàng của bạn</p>
+
+  <div class="popup-summary">
+    <p><strong>Người ủng hộ:</strong> <span id="popupDonorName">---</span></p>
+    <p><strong>Số tiền:</strong> <span id="popupAmount">---</span></p>
+    <p><strong>Nội dung:</strong> <span id="popupInfo">---</span></p>
   </div>
+
+  <img id="qrImage" src="" alt="Mã QR chuyển khoản">
+
+  <a id="qrDownload" href="" download="qr-chuyenkhoan.jpg" class="primary-btn download-link">Lưu ảnh mã QR</a>
+
+  <p class="popup-note">
+    iPhone: giữ tay vào ảnh QR và chọn “Lưu ảnh”.<br>
+    Android: có thể bấm nút tải ảnh ở trên.
+  </p>
+
+  <p class="popup-note highlight">Mã QR được tạo từ VietQR.</p>
+
+  <button type="button" class="secondary-btn" id="closePopupBtn">Đóng</button>
+</div>
 
   <div id="toast">Đã copy số tài khoản!</div>
 
   <footer>
-    © 2026 Nguyễn Văn Ngân – Cảm ơn sự ủng hộ của bạn<br>
+  <p>© 2026 Nguyễn Văn Ngân. Xin chân thành cảm ơn sự ủng hộ của bạn.</p>
+  <p>
     Liên hệ:
     <a href="mailto:vanngancabg@gmail.com">Email</a> |
     <a href="https://www.facebook.com/NguyenVanNgan2018" target="_blank" rel="noopener noreferrer">Facebook</a> |
     <a href="https://zalo.me/0936559126" target="_blank" rel="noopener noreferrer">Zalo</a> |
     <a href="https://discord.com/users/814485088804143105" target="_blank" rel="noopener noreferrer">Discord</a>
-  </footer>
+  </p>
+</footer>
 
   <script src="script.js"></script>
 </body>
