@@ -166,7 +166,7 @@ function createQr(amount, defaultInfo) {
 }
 
 function handleCustomDonate() {
-  createQr(customAmountInput.value, 'ung ho cho Ngan');
+  createQr(customAmountInput.value, 'ung ho Nguyen Van Ngan');
 }
 
 function updateFormattedAmount() {
@@ -185,10 +185,12 @@ async function copyAccountNumber() {
 
 function registerEvents() {
   document.querySelectorAll('.donate-buttons button').forEach((button) => {
-    button.addEventListener('click', () => {
-      createQr(button.dataset.amount, 'ung ho cafe');
-    });
+  button.addEventListener('click', () => {
+    customAmountInput.value = button.dataset.amount;
+    updateFormattedAmount();
+    customAmountInput.focus();
   });
+});
 
   document.getElementById('customDonateBtn').addEventListener('click', handleCustomDonate);
   document.getElementById('copyAccountBtn').addEventListener('click', copyAccountNumber);
