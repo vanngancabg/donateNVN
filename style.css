@@ -127,13 +127,6 @@ h1 {
   margin: 0;
 }
 
-.donate-buttons {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-  max-width: 900px;
-  margin: 24px auto;
-}
 
 button,
 .download-link {
@@ -145,49 +138,109 @@ button,
   transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
 }
 
+.donate-section {
+  max-width: 920px;
+  margin: 28px auto;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 215, 0, 0.25);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+.section-title {
+  color: var(--gold);
+  font-size: 1.5rem;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.donate-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  max-width: 100%;
+  margin: 0 auto 24px;
+}
+
+.donate-buttons button {
+  padding: 18px 16px;
+  background: linear-gradient(135deg, var(--pink), var(--orange));
+  color: white;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.donate-buttons button:hover {
+  transform: translateY(-3px);
+}
+
+.custom-amount {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 22px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.28);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 215, 0, 0.18);
+}
+
+.custom-title {
+  width: 100%;
+  margin: 0 0 8px;
+  text-align: center;
+  color: var(--gold-soft);
+  font-size: 1.15rem;
+}
+
+.custom-amount input {
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid #444;
+  min-width: 220px;
+  background: #111;
+  color: #fff;
+  font-size: 0.98rem;
+}
+
+.custom-amount input::placeholder {
+  color: #aaa;
+}
+
+.custom-amount input:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.12);
+}
+
+#formattedAmount {
+  color: var(--gold);
+  font-weight: 700;
+  min-width: 160px;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.primary-btn {
+  background: linear-gradient(135deg, var(--green), #2e7d32);
+  color: white;
+  padding: 14px 20px;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: var(--shadow);
+}
+
 button:hover,
 .download-link:hover {
   transform: translateY(-2px);
   opacity: 0.95;
 }
 
-.donate-buttons button {
-  padding: 18px 20px;
-  background: linear-gradient(135deg, var(--pink), var(--orange));
-  color: white;
-  box-shadow: var(--shadow);
-}
 
-.custom-amount {
-  max-width: 920px;
-  margin: 0 auto 24px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: center;
-  align-items: center;
-}
-
-.custom-amount input {
-  padding: 12px 14px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  min-width: 210px;
-}
-
-#formattedAmount {
-  color: var(--gold);
-  font-weight: 700;
-  min-width: 140px;
-}
-
-.primary-btn {
-  background: var(--green);
-  color: white;
-  padding: 12px 18px;
-  text-decoration: none;
-  display: inline-block;
-}
 
 .secondary-btn {
   background: var(--gold);
