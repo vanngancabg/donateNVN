@@ -10,6 +10,9 @@ const popup = document.getElementById('popup');
 const overlay = document.getElementById('overlay');
 const qrImage = document.getElementById('qrImage');
 const qrDownload = document.getElementById('qrDownload');
+const popupDonorName = document.getElementById('popupDonorName');
+const popupAmount = document.getElementById('popupAmount');
+const popupInfo = document.getElementById('popupInfo');
 const customAmountInput = document.getElementById('customAmount');
 const customNameInput = document.getElementById('customName');
 const customInfoInput = document.getElementById('customInfo');
@@ -20,6 +23,7 @@ const lastUpdate = document.getElementById('lastUpdate');
 const totalAmount = document.getElementById('totalAmount');
 const totalCount = document.getElementById('totalCount');
 const topDonor = document.getElementById('topDonor');
+
 
 function readHistory() {
   try {
@@ -108,9 +112,12 @@ function showToast(message) {
   }, 2000);
 }
 
-function openPopup(qrLink) {
+function openPopup(qrLink, donorName, amount, info) {
   qrImage.src = qrLink;
   qrDownload.href = qrLink;
+  popupDonorName.textContent = donorName;
+  popupAmount.textContent = formatMoney(amount);
+  popupInfo.textContent = info;
   popup.classList.remove('hidden');
   overlay.classList.remove('hidden');
 }
@@ -120,6 +127,9 @@ function closePopup() {
   overlay.classList.add('hidden');
   qrImage.src = '';
   qrDownload.href = '#';
+  popupDonorName.textContent = '---';
+  popupAmount.textContent = '---';
+  popupInfo.textContent = '---';
 }
 
 function buildTransferInfo(defaultInfo) {
@@ -162,7 +172,7 @@ function createQr(amount, defaultInfo) {
   });
   saveHistory(history);
   renderHistory();
-  openPopup(qrLink);
+  openPopup(qrLink, name, safeAmount, info);
 }
 
 function handleCustomDonate() {
@@ -184,19 +194,28 @@ async function copyAccountNumber() {
 }
 
 function registerEvents() {
-  document.querySelectorAll('.donate-buttons button').forEach((button) => {
-  button.addEventListener('click', () => {
-    customAmountInput.value = button.dataset.amount;
-    updateFormattedAmount();
-    customAmountInput.focus();
+  const amountButtons = document.querySelectorAll('.donate-buttons button');
+
+  amountButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      amountButtons.forEach((item) => item.classList.remove('active'));
+      button.classList.add('active');
+
+      customAmountInput.value = button.dataset.amount;
+      updateFormattedAmount();
+      customAmountInput.focus();
+    });
   });
-});
 
   document.getElementById('customDonateBtn').addEventListener('click', handleCustomDonate);
   document.getElementById('copyAccountBtn').addEventListener('click', copyAccountNumber);
   document.getElementById('closePopupBtn').addEventListener('click', closePopup);
   overlay.addEventListener('click', closePopup);
-  customAmountInput.addEventListener('input', updateFormattedAmount);
+
+  customAmountInput.addEventListener('input', () => {
+    amountButtons.forEach((item) => item.classList.remove('active'));
+    updateFormattedAmount();
+  });
 }
 
 registerEvents();
