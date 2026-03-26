@@ -4,7 +4,9 @@ const BANK = {
   accountName: 'NGUYEN VAN NGAN'
 };
 
-const STORAGE_KEY = 'donation_demo_history_v1';
+const SUPABASE_URL = 'https://mjtfqvmnyhfdgydnvlti.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_7-3VYFlyYd45ii43R0bi7A_5UEDnR20';
+const DONATION_TABLE = 'donation_logs';
 
 const popup = document.getElementById('popup');
 const overlay = document.getElementById('overlay');
@@ -24,33 +26,48 @@ const lastUpdate = document.getElementById('lastUpdate');
 const totalAmount = document.getElementById('totalAmount');
 const totalCount = document.getElementById('totalCount');
 const topDonor = document.getElementById('topDonor');
-const clearHistoryBtn = document.getElementById('clearHistoryBtn');
+const refreshHistoryBtn = document.getElementById('refreshHistoryBtn');
 
 
-function readHistory() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    const list = raw ? JSON.parse(raw) : [];
-    return Array.isArray(list) ? list : [];
-  } catch (error) {
-    return [];
-  }
-}
+async function fetchHistory() {
+  const url = `${SUPABASE_URL}/rest/v1/${DONATION_TABLE}?select=id,created_at,name,amount,info&order=created_at.desc&limit=50`;
 
-function saveHistory(list) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
-}
+  const response = await fetch(url, {
+    headers: {
+      apikey: SUPABASE_PUBLISHABLE_KEY,
+      Authorization: `Bearer ${SUPABASE_PUBLISHABLE_KEY}`
+    }
+  });
 
-function clearHistory() {
-  const confirmed = window.confirm('Bạn có chắc muốn xóa toàn bộ lịch sử trên máy này không?');
-  if (!confirmed) {
-    return;
+  if (!response.ok) {
+    throw new Error('Không tải được lịch sử dùng chung.');
   }
 
-  localStorage.removeItem(STORAGE_KEY);
-  renderHistory();
-  showToast('Đã xóa lịch sử trên máy này.');
+  return response.json();
 }
+
+async function insertHistory(entry) {
+  const url = `${SUPABASE_URL}/rest/v1/${DONATION_TABLE}`;
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      apikey: SUPABASE_PUBLISHABLE_KEY,
+      Authorization: `Bearer ${SUPABASE_PUBLISHABLE_KEY}`,
+      Prefer: 'return=representation'
+    },
+    body: JSON.stringify([entry])
+  });
+
+  if (!response.ok) {
+    throw new Error('Không lưu được dữ liệu lên server.');
+  }
+
+  const rows = await response.json();
+  return rows[0];
+}
+
 
 function formatMoney(amount) {
   return Number(amount).toLocaleString('vi-VN') + ' VND';
@@ -76,37 +93,51 @@ function animateValue(element, endValue, suffix = '') {
   requestAnimationFrame(update);
 }
 
-function renderHistory() {
-  const history = readHistory().sort((a, b) => new Date(b.time) - new Date(a.time));
-  tableBody.innerHTML = '';
+async function renderHistory() {
+  tableBody.innerHTML = '<tr><td colspan="4">Đang tải dữ liệu...</td></tr>';
 
-  if (history.length === 0) {
-  tableBody.innerHTML = '<tr><td colspan="4">Chưa có lịch sử trên máy này.</td></tr>';
-  totalAmount.textContent = '0 VND';
-  totalCount.textContent = '0';
-  topDonor.textContent = 'Chưa có dữ liệu';
-  lastUpdate.textContent = 'Chưa có dữ liệu';
-  return;
-}
+  try {
+    const history = await fetchHistory();
+    tableBody.innerHTML = '';
 
-  const total = history.reduce((sum, item) => sum + Number(item.amount || 0), 0);
-  const latest = history[0];
+    if (!history.length) {
+      tableBody.innerHTML = '<tr><td colspan="4">Chưa có dữ liệu dùng chung.</td></tr>';
+      totalAmount.textContent = '0 VND';
+      totalCount.textContent = '0';
+      topDonor.textContent = 'Chưa có dữ liệu';
+      lastUpdate.textContent = 'Chưa có dữ liệu';
+      return;
+    }
 
-  animateValue(totalAmount, total, ' VND');
-  totalCount.textContent = String(history.length);
-  topDonor.textContent = latest.name ? `${latest.name} (${formatMoney(latest.amount)})` : formatMoney(latest.amount);
-  lastUpdate.textContent = 'Cập nhật: ' + new Date().toLocaleString('vi-VN');
+    const total = history.reduce((sum, item) => sum + Number(item.amount || 0), 0);
+    const latest = history[0];
 
-  history.slice(0, 10).forEach((item) => {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${new Date(item.time).toLocaleString('vi-VN')}</td>
-      <td>${escapeHtml(item.name || 'Ẩn danh')}</td>
-      <td>${formatMoney(item.amount)}</td>
-      <td>${escapeHtml(item.info)}</td>
-    `;
-    tableBody.appendChild(row);
-  });
+    animateValue(totalAmount, total, ' VND');
+    totalCount.textContent = String(history.length);
+    topDonor.textContent = latest.name
+      ? `${latest.name} (${formatMoney(latest.amount)})`
+      : formatMoney(latest.amount);
+
+    lastUpdate.textContent = 'Cập nhật: ' + new Date().toLocaleString('vi-VN');
+
+    history.forEach((item) => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${new Date(item.created_at).toLocaleString('vi-VN')}</td>
+        <td>${escapeHtml(item.name || 'Ẩn danh')}</td>
+        <td>${formatMoney(item.amount)}</td>
+        <td>${escapeHtml(item.info)}</td>
+      `;
+      tableBody.appendChild(row);
+    });
+  } catch (error) {
+    tableBody.innerHTML = '<tr><td colspan="4">Không tải được dữ liệu dùng chung.</td></tr>';
+    totalAmount.textContent = '0 VND';
+    totalCount.textContent = '0';
+    topDonor.textContent = 'Lỗi tải dữ liệu';
+    lastUpdate.textContent = 'Không thể kết nối server';
+    showToast('Không tải được dữ liệu dùng chung.');
+  }
 }
 
 function escapeHtml(text) {
@@ -161,7 +192,7 @@ function buildTransferInfo(defaultInfo) {
   return typedInfo;
 }
 
-function createQr(amount, defaultInfo) {
+async function createQr(amount, defaultInfo) {
   const safeAmount = Number(amount);
   const name = customNameInput.value.trim() || 'Ẩn danh';
   const info = buildTransferInfo(defaultInfo);
@@ -177,17 +208,21 @@ function createQr(amount, defaultInfo) {
 
   const qrLink = `https://img.vietqr.io/image/${BANK.bankName}-${BANK.accountNumber}-compact2.jpg?amount=${safeAmount}&addInfo=${encodeURIComponent(info)}&accountName=${encodeURIComponent(BANK.accountName)}`;
 
-  const history = readHistory();
-  history.push({
-    time: new Date().toISOString(),
-    name,
-    amount: safeAmount,
-    info
-  });
-  saveHistory(history);
-  renderHistory();
-  openPopup(qrLink, name, safeAmount, info);
+  try {
+    await insertHistory({
+      name,
+      amount: safeAmount,
+      info
+    });
+
+    await renderHistory();
+    openPopup(qrLink, name, safeAmount, info);
+  } catch (error) {
+    showToast('Không lưu được dữ liệu dùng chung.');
+    openPopup(qrLink, name, safeAmount, info);
+  }
 }
+
 
 function handleCustomDonate() {
   createQr(customAmountInput.value, 'ung ho Nguyen Van Ngan');
@@ -235,10 +270,10 @@ function registerEvents() {
   document.getElementById('customDonateBtn').addEventListener('click', handleCustomDonate);
   document.getElementById('copyAccountBtn').addEventListener('click', copyAccountNumber);
   document.getElementById('closePopupBtn').addEventListener('click', closePopup);
-  clearHistoryBtn.addEventListener('click', clearHistory);
+  refreshHistoryBtn.addEventListener('click', renderHistory);
   overlay.addEventListener('click', closePopup);
 
-    customAmountInput.addEventListener('input', () => {
+  customAmountInput.addEventListener('input', () => {
     amountButtons.forEach((item) => item.classList.remove('active'));
     updateFormattedAmount();
   });
@@ -246,7 +281,6 @@ function registerEvents() {
   customInfoInput.addEventListener('input', updateDonateButtonState);
   customNameInput.addEventListener('input', updateDonateButtonState);
 }
-
 
 registerEvents();
 renderHistory();
