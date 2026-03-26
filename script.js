@@ -185,9 +185,9 @@ function buildTransferInfo(defaultInfo) {
 
   const hasVietnameseMarks = /[ăâđêôơưáàảãạấầẩẫậắằẳẵặéèẻẽẹếềểễệíìỉĩịóòỏõọốồổỗộớờởỡợúùủũụứừửữựýỳỷỹỵ]/i.test(typedInfo);
   if (hasVietnameseMarks) {
-    alert('Vui lòng nhập nội dung chuyển khoản không dấu.');
-    return null;
-  }
+  alert('Nội dung chuyển khoản không được có dấu tiếng Việt. Ví dụ đúng: ung ho Nguyen Van Ngan');
+  return null;
+}
 
   return typedInfo;
 }
@@ -230,13 +230,12 @@ function handleCustomDonate() {
 
 function updateDonateButtonState() {
   const amount = Number(customAmountInput.value);
-  const info = customInfoInput.value.trim();
-
-  const isValid = amount >= 10000 && info.length > 0;
+  const isValid = amount >= 10000;
 
   customDonateBtn.disabled = !isValid;
   customDonateBtn.classList.toggle('disabled', !isValid);
 }
+
 
 function updateFormattedAmount() {
   const value = customAmountInput.value;
