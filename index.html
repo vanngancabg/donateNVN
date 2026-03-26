@@ -7,45 +7,46 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="banner">Ủng hộ Văn Ngân – Cảm ơn sự đóng góp của bạn</div>
+ <!-- Banner -->
+  <div class="banner">Cảm ơn bạn đã ghé thăm và ủng hộ Nguyễn Văn Ngân</div>
 
-  <main class="container">
-    <section class="dashboard">
-      <div class="card">
-        <h3>💰 Tổng demo</h3>
-        <p id="totalAmount" class="counter">0 VND</p>
-      </div>
-      <div class="card">
-        <h3>👥 Lượt demo</h3>
-        <p id="totalCount" class="counter">0</p>
-      </div>
-      <div class="card">
-        <h3>🥇 Gần nhất</h3>
-        <p id="topDonor" class="counter">---</p>
-      </div>
-    </section>
+  <section class="hero-section">
+    <img src="ca-nhan.jpg" alt="Ảnh cá nhân" class="avatar">
 
-    <img src="ca-nhan.jpg" alt="Ảnh cá nhân" class="avatar" onerror="this.style.display='none'">
-    <p class="intro">Xin chào, tôi là Nguyễn Văn Ngân</p>
-    <h1>Ủng hộ tôi qua chuyển khoản ngân hàng</h1>
+    <div class="intro">Xin chào, tôi là Nguyễn Văn Ngân</div>
 
-    <section class="info-box">
-      <h2>Thông tin tài khoản</h2>
-      <img src="vietinbank-logo.png" alt="Logo VietinBank" class="bank-logo" onerror="this.style.display='none'">
-      <p><strong>Ngân hàng:</strong> VietinBank</p>
-      <p><strong>Số tài khoản:</strong> <span id="accountNumber">101601626628</span></p>
-      <button type="button" class="secondary-btn" id="copyAccountBtn">Copy số tài khoản</button>
-      <p><strong>Chủ tài khoản:</strong> NGUYEN VAN NGAN</p>
-    </section>
+    <h1 class="main-title">Ủng hộ qua chuyển khoản ngân hàng</h1>
 
-    <section class="guide-box">
-      <h2>Hướng dẫn ủng hộ</h2>
-      <ul>
-        <li>Chọn số tiền có sẵn hoặc nhập số tiền tùy ý.</li>
-        <li>Nhập nội dung chuyển khoản không dấu.</li>
-        <li>Bấm <strong>Tạo QR</strong> để hiện mã thanh toán.</li>
-        <li>Trang này chỉ là bản tĩnh chạy trên GitHub Pages, không tự xác nhận thanh toán thật.</li>
-      </ul>
+    <p class="hero-text">
+      Mọi sự ủng hộ của bạn, dù lớn hay nhỏ, đều là động lực rất lớn để tôi tiếp tục cố gắng.
+      Xin chân thành cảm ơn bạn vì đã dành thời gian ghé thăm trang này.
+    </p>
+  </section>
+
+  <div class="dashboard">
+    <div class="card"><h3>💰 Tổng</h3><p id="totalAmount">0</p></div>
+    <div class="card"><h3>👥 Lượt</h3><p id="totalCount">0</p></div>
+    <div class="card"><h3>🥇 Top</h3><p id="topDonor">---</p></div>
+  </div>
+
+  <!-- Khung thông tin tài khoản -->
+  <div class="info-box">
+    <h3>Thông tin chuyển khoản</h3>
+    <img src="vietinbank-logo.png" alt="Logo VietinBank" class="bank-logo">
+    <p><strong>Ngân hàng:</strong> VietinBank</p>
+    <p><strong>Số tài khoản:</strong> <span class="account-number">101601626628</span></p>
+    <p><strong>Chủ tài khoản:</strong> NGUYEN VAN NGAN</p>
+    <button onclick="copyAccount()" class="copy-btn">Copy số tài khoản</button>
+  </div>
+
+  <!-- Khung hướng dẫn -->
+  <div class="guide-box">
+    <h3>Hướng dẫn ủng hộ</h3>
+    <ul>
+      <li>Chọn mức ủng hộ phù hợp hoặc nhập số tiền tùy ý</li>
+      <li>Tạo mã QR và quét bằng ứng dụng ngân hàng của bạn</li>
+      <li>Kiểm tra thông tin chuyển khoản trước khi xác nhận</li>
+    </ul>
     </section>
 
     <section class="donate-buttons">
