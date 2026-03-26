@@ -283,4 +283,5 @@ function registerEvents() {
 
 registerEvents();
 renderHistory();
+updateFormattedAmount();
 updateDonateButtonState();
