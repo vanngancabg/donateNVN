@@ -23,6 +23,7 @@ const lastUpdate = document.getElementById('lastUpdate');
 const totalAmount = document.getElementById('totalAmount');
 const totalCount = document.getElementById('totalCount');
 const topDonor = document.getElementById('topDonor');
+const clearHistoryBtn = document.getElementById('clearHistoryBtn');
 
 
 function readHistory() {
@@ -39,9 +40,21 @@ function saveHistory(list) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
 }
 
+function clearHistory() {
+  const confirmed = window.confirm('Bạn có chắc muốn xóa toàn bộ lịch sử trên máy này không?');
+  if (!confirmed) {
+    return;
+  }
+
+  localStorage.removeItem(STORAGE_KEY);
+  renderHistory();
+  showToast('Đã xóa lịch sử trên máy này.');
+}
+
 function formatMoney(amount) {
   return Number(amount).toLocaleString('vi-VN') + ' VND';
 }
+
 
 function animateValue(element, endValue, suffix = '') {
   const safeEnd = Number(endValue) || 0;
@@ -210,6 +223,7 @@ function registerEvents() {
   document.getElementById('customDonateBtn').addEventListener('click', handleCustomDonate);
   document.getElementById('copyAccountBtn').addEventListener('click', copyAccountNumber);
   document.getElementById('closePopupBtn').addEventListener('click', closePopup);
+  clearHistoryBtn.addEventListener('click', clearHistory);
   overlay.addEventListener('click', closePopup);
 
   customAmountInput.addEventListener('input', () => {
@@ -217,6 +231,7 @@ function registerEvents() {
     updateFormattedAmount();
   });
 }
+
 
 registerEvents();
 renderHistory();
