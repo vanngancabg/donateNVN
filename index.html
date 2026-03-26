@@ -75,9 +75,17 @@
     </section>
   </section>
 
-  <section class="history-box">
-    <h2>Lịch sử tạo QR trên máy này</h2>
-    <p id="lastUpdate">Chưa có dữ liệu</p>
+ <section class="history-box">
+  <div class="history-header">
+    <div class="history-title-group">
+      <h2>Lịch sử tạo QR trên máy này</h2>
+      <p id="lastUpdate">Chưa có dữ liệu</p>
+    </div>
+
+    <button type="button" class="danger-btn" id="clearHistoryBtn">Xóa lịch sử</button>
+  </div>
+
+  <div class="table-wrap">
     <table id="donateTable">
       <thead>
         <tr>
@@ -89,7 +97,8 @@
       </thead>
       <tbody></tbody>
     </table>
-  </section>
+  </div>
+</section>
 
   <div id="overlay" class="overlay hidden"></div>
   <div id="popup" class="popup hidden" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
