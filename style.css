@@ -256,23 +256,57 @@ button:hover,
 }
 
 .history-box {
-  overflow-x: auto;
+  max-width: 920px;
+  margin: 28px auto;
+  padding: 22px;
+  overflow: hidden;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.history-title-group h2 {
+  margin-bottom: 6px;
 }
 
 #lastUpdate {
   color: var(--muted);
   font-size: 0.95rem;
+  margin: 0;
+}
+
+.danger-btn {
+  border: none;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  color: white;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border-radius: 12px;
 }
 
 #donateTable {
   width: 100%;
   border-collapse: collapse;
   overflow: hidden;
+  min-width: 680px;
 }
 
 #donateTable th,
 #donateTable td {
-  padding: 10px;
+  padding: 12px 14px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
@@ -284,6 +318,11 @@ button:hover,
 
 #donateTable td {
   color: #fff;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+#donateTable tbody tr:hover td {
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .overlay {
@@ -412,20 +451,46 @@ footer a:hover {
 
   .banner {
     font-size: 1.15rem;
+    padding: 16px;
   }
 
   h1 {
     font-size: 1.6rem;
   }
 
+  .hero-section,
+  .info-box,
+  .guide-box,
+  .donate-section,
+  .history-box {
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+
   .custom-amount {
     flex-direction: column;
+    align-items: stretch;
   }
 
   .custom-amount input,
   .primary-btn,
-  .secondary-btn {
+  .secondary-btn,
+  .danger-btn {
     width: 100%;
-    max-width: 360px;
+    max-width: 100%;
+  }
+
+  .history-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .popup {
+    width: calc(100vw - 24px);
+    padding: 18px;
+  }
+
+  .popup img {
+    width: min(100%, 220px);
   }
 }
